@@ -27,6 +27,7 @@ local showSquareB = false
 local Menu = config.Menu
 local CinematicHeight = 0.2
 local w = 0
+local radioActive = false
 
 DisplayRadar(false)
 
@@ -110,6 +111,10 @@ AddEventHandler('onResourceStart', function(resourceName)
     Wait(2000)
     local hudSettings = GetResourceKvpString('hudSettings')
     if hudSettings then loadSettings(json.decode(hudSettings)) end
+end)
+
+AddEventHandler("pma-voice:radioActive", function(data)
+    radioActive = data
 end)
 
 -- Callbacks & Events
@@ -636,6 +641,7 @@ local function updatePlayerHud(data)
             engine = data[28],
             cinematic = data[29],
             dev = data[30],
+            radioActive = data[31],
         })
     end
 end
@@ -752,6 +758,7 @@ CreateThread(function()
                 -1,
                 Menu.isCineamticModeChecked,
                 dev,
+                radioActive,
             })
             end
             -- Vehicle hud
@@ -795,6 +802,7 @@ CreateThread(function()
                     (GetVehicleEngineHealth(vehicle) / 10),
                     Menu.isCineamticModeChecked,
                     dev,
+                    radioActive,
                 })
                 updateVehicleHud({
                     show,

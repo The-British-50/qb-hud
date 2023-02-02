@@ -798,6 +798,7 @@ const playerHud = {
       hungerColor: "",
       healthColor: "",
       thirstColor: "",
+      radioActive: false,
     };
   },
   
@@ -826,6 +827,7 @@ const playerHud = {
       this.voice = data.voice;
       this.talking = data.talking;
       this.radio = data.radio;
+      this.radioActive = data.radioActive;
       this.nos = data.nos;
       this.oxygen = data.oxygen;
       this.cruise = data.cruise;
@@ -967,7 +969,7 @@ const playerHud = {
         this.nosColor = "#FFFFFF";
       }
 
-      if (data.talking && data.radio) {
+      if (data.radioActive) {
         this.talkingColor = "#D64763";
       } else if (data.talking) {
         this.talkingColor = '#FFFF3E';
