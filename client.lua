@@ -867,7 +867,7 @@ RegisterNetEvent('hud:client:ShowAccounts', function(type, amount)
             type = 'bank',
             bank = amount
         })
-    else
+    elseif
         SendNUIMessage({
             action = 'show',
             type = 'dirty',
