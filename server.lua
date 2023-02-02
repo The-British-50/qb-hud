@@ -13,6 +13,12 @@ QBCore.Commands.Add('bank', 'Check Bank Balance', {}, false, function(source, _)
     TriggerClientEvent('hud:client:ShowAccounts', source, 'bank', bankamount)
 end)
 
+QBCore.Commands.Add('dirty', 'Check Dirty Cash', {}, false, function(source, _)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local dirtyamount = Player.PlayerData.money.dirty
+    TriggerClientEvent('hud:client:ShowAccounts', source, 'dirty', dirtyamount)
+end)
+
 QBCore.Commands.Add("dev", "Enable/Disable developer Mode", {}, false, function(source, _)
     TriggerClientEvent("qb-admin:client:ToggleDevmode", source)
 end, 'admin')

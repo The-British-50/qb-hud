@@ -12,6 +12,7 @@ local hunger = 100
 local thirst = 100
 local cashAmount = 0
 local bankAmount = 0
+local dirtyAmount = 0
 local nitroActive = 0
 local harness = 0
 local hp = 100
@@ -866,8 +867,8 @@ RegisterNetEvent('hud:client:ShowAccounts', function(type, amount)
             action = 'show',
             type = 'bank',
             bank = amount
-        })
-    elseif
+        }) then
+    else
         SendNUIMessage({
             action = 'show',
             type = 'dirty',

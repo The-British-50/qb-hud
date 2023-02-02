@@ -627,11 +627,13 @@ const moneyHud = Vue.createApp({
     return {
       cash: 0,
       bank: 0,
+      dirty: 0,
       amount: 0,
       plus: false,
       minus: false,
       showCash: false,
       showBank: false,
+      showDirty: false,
       showUpdate: false,
     };
   },
@@ -668,14 +670,17 @@ const moneyHud = Vue.createApp({
     showConstant(data) {
       this.showCash = true;
       this.showBank = true;
+      this.showDirty = true;
       this.cash = data.cash;
       this.bank = data.bank;
+      this.dirty = data.dirty;
     },
     update(data) {
       this.showUpdate = true;
       this.amount = data.amount;
       this.bank = data.bank;
       this.cash = data.cash;
+      this.dirty = data.dirty;
       this.minus = data.minus;
       this.plus = data.plus;
       if (data.type === "cash") {
@@ -704,6 +709,19 @@ const moneyHud = Vue.createApp({
           setTimeout(() => (this.showBank = false), 2000);
         }
       }
+      if (data.type === "dirty") {
+        if (data.minus) {
+          this.showDirty = true;
+          this.minus = true;
+          setTimeout(() => (this.showUpdate = false), 1000);
+          setTimeout(() => (this.showDirty = false), 2000);
+        } else {
+          this.showDirty = true;
+          this.plus = true;
+          setTimeout(() => (this.showUpdate = false), 1000);
+          setTimeout(() => (this.showDirty = false), 2000);
+        }
+      }
     },
     showAccounts(data) {
       if (data.type === "cash" && !this.showCash) {
@@ -714,6 +732,10 @@ const moneyHud = Vue.createApp({
         this.showBank = true;
         this.bank = data.bank;
         setTimeout(() => (this.showBank = false), 3500);
+      } else if (data.type === "dirty" && !this.showDirty) {
+        this.showDirty = true;
+        this.dirty = data.dirty;
+        setTimeout(() => (this.showDirty = false), 3500);
       }
     },
   },
